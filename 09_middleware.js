@@ -58,18 +58,20 @@
 // its code is provided here: https://github.com/gaearon/redux-thunk.
 // Here is what it looks like (with function body translated to es5 for readability):
 
-var thunkMiddleware = function ({ dispatch, getState }) {
-    // console.log('Enter thunkMiddleware');
-    return function(next) {
-        // console.log('Function "next" provided:', next);
-        return function (action) {
-            // console.log('Handling action:', action);
-            return typeof action === 'function' ?
-                action(dispatch, getState) :
-                next(action)
-        }
-    }
-}
+var thunkMiddleware = function({ dispatch, getState }) {
+  // console.log('Enter thunkMiddleware');
+  return function(next) {
+
+    // console.log('Function "next" provided:', next);
+
+    return function(action) {
+      // console.log('Handling action:', action);
+      return typeof action === 'function' ?
+        action(dispatch, getState) :
+        next(action);
+    };
+  };
+};
 
 // To tell Redux that we have one or more middlewares, we must use one of Redux's
 // helper functions: applyMiddleware.
@@ -81,28 +83,30 @@ var thunkMiddleware = function ({ dispatch, getState }) {
 
 // Here is how you would integrate a middleware to your Redux store:
 
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 
-const finalCreateStore = applyMiddleware(thunkMiddleware)(createStore)
+const finalCreateStore = applyMiddleware(thunkMiddleware)(createStore);
+
 // For multiple middlewares, write: applyMiddleware(middleware1, middleware2, ...)(createStore)
 
 var reducer = combineReducers({
-    speaker: function (state = {}, action) {
-        console.log('speaker was called with state', state, 'and action', action)
+  speaker: function(state = {}, action) {
+    console.log('speaker was called with state', state, 'and action', action);
 
-        switch (action.type) {
-            case 'SAY':
-                return {
-                    ...state,
-                    message: action.message
-                }
-            default:
-                return state
-        }
+    switch (action.type) {
+      case 'SAY':
+        return {
+          ...state,
+          message: action.message
+        };
+      default:
+        return state;
     }
-})
+  }
+});
 
-const store_0 = finalCreateStore(reducer)
+const store0 = finalCreateStore(reducer);
+
 // Output:
 //     speaker was called with state {} and action { type: '@@redux/INIT' }
 //     speaker was called with state {} and action { type: '@@redux/PROBE_UNKNOWN_ACTION_s.b.4.z.a.x.a.j.o.r' }
@@ -110,21 +114,22 @@ const store_0 = finalCreateStore(reducer)
 
 // Now that we have our middleware-ready store instance, let's try again to dispatch our async action:
 
-var asyncSayActionCreator_1 = function (message) {
-    return function (dispatch) {
-        setTimeout(function () {
-            console.log(new Date(), 'Dispatch action now:')
-            dispatch({
-                type: 'SAY',
-                message
-            })
-        }, 2000)
-    }
-}
+var asyncSayActionCreator1 = function(message) {
+  return function(dispatch) {
+    setTimeout(function() {
+      console.log(new Date(), 'Dispatch action now:');
+      dispatch({
+        type: 'SAY',
+        message
+      });
+    }, 2000);
+  };
+};
 
-console.log("\n", new Date(), 'Running our async action creator:', "\n")
+console.log('\n', new Date(), 'Running our async action creator:', '\n');
 
-store_0.dispatch(asyncSayActionCreator_1('Hi'))
+store0.dispatch(asyncSayActionCreator1('Hi'));
+
 // Output:
 //     Mon Aug 03 2015 00:01:20 GMT+0200 (CEST) Running our async action creator:
 //     Mon Aug 03 2015 00:01:22 GMT+0200 (CEST) 'Dispatch action now:'
@@ -135,24 +140,24 @@ store_0.dispatch(asyncSayActionCreator_1('Hi'))
 // Just for your curiosity, here is how a middleware to log all actions that are dispatched, would
 // look like:
 
-function logMiddleware ({ dispatch, getState }) {
-    return function(next) {
-        return function (action) {
-            console.log('logMiddleware action received:', action)
-            return next(action)
-        }
-    }
+function logMiddleware({ dispatch, getState }) {
+  return function(next) {
+    return function(action) {
+      console.log('logMiddleware action received:', action);
+      return next(action);
+    };
+  };
 }
 
 // Same below for a middleware to discard all actions that goes through (not very useful as is
 // but with a bit of more logic it could selectively discard a few actions while passing others
 // to next middleware or Redux):
-function discardMiddleware ({ dispatch, getState }) {
-    return function(next) {
-        return function (action) {
-            console.log('discardMiddleware action received:', action)
-        }
-    }
+function discardMiddleware({ dispatch, getState }) {
+  return function(next) {
+    return function(action) {
+      console.log('discardMiddleware action received:', action);
+    };
+  };
 }
 
 // Try to modify finalCreateStore call above by using the logMiddleware and / or the discardMiddleware

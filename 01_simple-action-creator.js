@@ -7,11 +7,11 @@
 
 // The action creator is just a function...
 var actionCreator = function() {
-    // ...that creates an action (yeah, the name action creator is pretty obvious now) and returns it
-    return {
-        type: 'AN_ACTION'
-    }
-}
+  // ...that creates an action (yeah, the name action creator is pretty obvious now) and returns it
+  return {
+    type: 'AN_ACTION'
+  };
+};
 
 // So is that all? yes.
 
@@ -25,7 +25,9 @@ var actionCreator = function() {
 // in dispatch-async-action.js).
 
 // We can call this action creator and get an action as expected:
-console.log(actionCreator())
+
+console.log(actionCreator());
+
 // Output: { type: 'AN_ACTION' }
 
 // Ok, this works but it does not go anywhere...

@@ -47,9 +47,9 @@
 
 // Let's try again
 
-import { createStore } from 'redux'
+import { createStore } from 'redux';
 
-var store = createStore(() => {})
+var store = createStore(() => {});
 
 // Seems good for now...
 

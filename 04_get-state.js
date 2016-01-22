@@ -2,19 +2,21 @@
 
 // How do we retrieve the state from our Redux instance?
 
-import { createStore } from 'redux'
+import { createStore } from 'redux';
 
-var reducer_0 = function (state, action) {
-    console.log('reducer_0 was called with state', state, 'and action', action)
-}
+var reducer0 = function(state, action) {
+  console.log('reducer0 was called with state', state, 'and action', action);
+};
 
-var store_0 = createStore(reducer_0)
-// Output: reducer_0 was called with state undefined and action { type: '@@redux/INIT' }
+var store0 = createStore(reducer0);
+
+// Output: reducer0 was called with state undefined and action { type: '@@redux/INIT' }
 
 // To get the state that Redux is holding for us, you call getState
 
-console.log('store_0 state after initialization:', store_0.getState())
-// Output: store_0 state after initialization: undefined
+console.log('store0 state after initialization:', store0.getState());
+
+// Output: store0 state after initialization: undefined
 
 // So the state of our application is still undefined after the initialization? Well of course it is,
 // our reducer is not doing anything... Remember how we described the expected behavior of a reducer in
@@ -26,61 +28,67 @@ console.log('store_0 state after initialization:', store_0.getState())
 
 // Let's try to send an initial state of our application if the state given to reducer is undefined:
 
-var reducer_1 = function (state, action) {
-    console.log('reducer_1 was called with state', state, 'and action', action)
-    if (typeof state === 'undefined') {
-        return {}
-    }
+var reducer1 = function(state, action) {
+  console.log('reducer1 was called with state', state, 'and action', action);
+  if (typeof state === 'undefined') {
+    return {};
+  }
 
-    return state;
-}
+  return state;
+};
 
-var store_1 = createStore(reducer_1)
-// Output: reducer_1 was called with state undefined and action { type: '@@redux/INIT' }
+var store1 = createStore(reducer1);
 
-console.log('store_1 state after initialization:', store_1.getState())
-// Output: store_1 state after initialization: {}
+// Output: reducer1 was called with state undefined and action { type: '@@redux/INIT' }
+
+console.log('store1 state after initialization:', store1.getState());
+
+// Output: store1 state after initialization: {}
 
 // As expected, the state returned by Redux after initialization is now {}
 
 // There is however a much cleaner way to implement this pattern thanks to ES6:
 
-var reducer_2 = function (state = {}, action) {
-    console.log('reducer_2 was called with state', state, 'and action', action)
+var reducer2 = function(state = {}, action) {
+  console.log('reducer2 was called with state', state, 'and action', action);
 
-    return state;
-}
+  return state;
+};
 
-var store_2 = createStore(reducer_2)
-// Output: reducer_2 was called with state {} and action { type: '@@redux/INIT' }
+var store2 = createStore(reducer2);
 
-console.log('store_2 state after initialization:', store_2.getState())
-// Output: store_2 state after initialization: {}
+// Output: reducer2 was called with state {} and action { type: '@@redux/INIT' }
 
-// You've probably noticed that since we've used the default parameter on state parameter of reducer_2,
+console.log('store2 state after initialization:', store2.getState());
+
+// Output: store2 state after initialization: {}
+
+// You've probably noticed that since we've used the default parameter on state parameter of reducer2,
 // we no longer get undefined as state's value in our reducer's body.
 
 // Let's now recall that a reducer is only called in response to an action dispatched and
 // let's fake a state modification in response to an action type 'SAY_SOMETHING'
 
-var reducer_3 = function (state = {}, action) {
-    console.log('reducer_3 was called with state', state, 'and action', action)
+var reducer3 = function(state = {}, action) {
+  console.log('reducer3 was called with state', state, 'and action', action);
 
-    switch (action.type) {
-        case 'SAY_SOMETHING':
-            return {
-                ...state,
-                message: action.value
-            }
-        default:
-            return state;
-    }
-}
+  switch (action.type) {
+    case 'SAY_SOMETHING':
+      return {
+        ...state,
+        message: action.value
+      };
+    default:
+      return state;
+  }
+};
 
-var store_3 = createStore(reducer_3)
-// Output: reducer_3 was called with state {} and action { type: '@@redux/INIT' }
+var store3 = createStore(reducer3);
 
-console.log('store_3 state after initialization:', store_3.getState())
+// Output: reducer3 was called with state {} and action { type: '@@redux/INIT' }
+
+console.log('store3 state after initialization:', store3.getState());
+
 // Output: redux state after initialization: {}
 
 // Nothing new in our state so far since we did not dispatch any action yet. But there are few

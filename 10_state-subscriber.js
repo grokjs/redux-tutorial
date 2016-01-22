@@ -23,42 +23,43 @@
 
 // Let's try this out:
 
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers } from 'redux';
 
-var itemsReducer = function (state = [], action) {
-    console.log('itemsReducer was called with state', state, 'and action', action)
+var itemsReducer = function(state = [], action) {
+  console.log('itemsReducer was called with state', state, 'and action', action);
 
-    switch (action.type) {
-        case 'ADD_ITEM':
-            return [
-                ...state,
-                action.item
-            ]
-        default:
-            return state;
-    }
-}
+  switch (action.type) {
+    case 'ADD_ITEM':
+      return [
+        ...state,
+        action.item
+      ];
+    default:
+      return state;
+  }
+};
 
-var reducer = combineReducers({ items: itemsReducer })
-var store_0 = createStore(reducer)
+var reducer = combineReducers({ items: itemsReducer });
+var store0 = createStore(reducer);
 
-store_0.subscribe(function() {
-    console.log('store_0 has been updated. Latest store state:', store_0.getState());
-    // Update your views here
-})
+store0.subscribe(function() {
+  console.log('store0 has been updated. Latest store state:', store0.getState());
 
-var addItemActionCreator = function (item) {
-    return {
-        type: 'ADD_ITEM',
-        item: item
-    }
-}
+  // Update your views here
+});
 
-store_0.dispatch(addItemActionCreator({ id: 1234, description: 'anything' }))
+var addItemActionCreator = function(item) {
+  return {
+    type: 'ADD_ITEM',
+    item: item
+  };
+};
+
+store0.dispatch(addItemActionCreator({ id: 1234, description: 'anything' }));
 
 // Output:
 //     ...
-//     store_0 has been updated. Latest store state: { items: [ { id: 1234, description: 'anything' } ] }
+//     store0 has been updated. Latest store state: { items: [ { id: 1234, description: 'anything' } ] }
 
 // Our subscribe callback is correctly called and our store now contains the new item that we added.
 
@@ -68,7 +69,7 @@ store_0.dispatch(addItemActionCreator({ id: 1234, description: 'anything' }))
 // last Flux concept:
 
 // - Our subscriber callback did not receive the state as a parameter, why?
-// - Since we did not receive our new state, we were bound to exploit our closured store (store_0) so this
+// - Since we did not receive our new state, we were bound to exploit our closured store (store0) so this
 //     solution is not acceptable in a real multi-modules application...
 // - How do we actually update our views?
 // - How do we unsubscribe from store updates?

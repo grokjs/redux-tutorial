@@ -13,9 +13,9 @@
 
 // As stated before, when creating a Redux instance you must give it a reducer function...
 
-import { createStore } from 'redux'
+import { createStore } from 'redux';
 
-var store_0 = createStore(() => {})
+var store0 = createStore(() => {});
 
 // ... so that Redux can call this function on your application state each time an action occurs.
 // Giving reducer(s) to createStore is exactly how redux registers the action "handlers" (read reducers) we
@@ -23,11 +23,11 @@ var store_0 = createStore(() => {})
 
 // Let's put some log in our reducer
 
-var reducer = function (...args) {
-    console.log('Reducer was called with args', args)
-}
+var reducer = function(...args) {
+  console.log('Reducer was called with args', args);
+};
 
-var store_1 = createStore(reducer)
+var store1 = createStore(reducer);
 
 // Output: Reducer was called with args [ undefined, { type: '@@redux/INIT' } ]
 
