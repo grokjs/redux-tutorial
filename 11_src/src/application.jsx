@@ -9,13 +9,14 @@
 // don't have to know about it, but if you're curious:
 // https://www.tildedave.com/2014/11/15/introduction-to-contexts-in-react-js.html).
 
-import React from 'react'
-import Home from './home'
-import { Provider } from 'react-redux'
+import React from 'react';
+import Home from './home';
+import { Provider } from 'react-redux';
 
 export default class Application extends React.Component {
-  render () {
+  render() {
     return (
+
       // As explained above, the Provider must wrap your application's Root component. This way,
       // this component and all of its children (even deeply nested ones) will have access to your
       // Redux store. Of course, to allow Provider to do that, you must give it the store
@@ -23,7 +24,7 @@ export default class Application extends React.Component {
       <Provider store={ this.props.store }>
         <Home />
       </Provider>
-    )
+    );
   }
 }
 

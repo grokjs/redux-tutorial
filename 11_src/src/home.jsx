@@ -52,14 +52,16 @@
 // an object literal). It's up to you to eventually transform the state you're receiving before returning it.
 // You can have a look right at that simplest 'connect' usage below (just after the component class definition).
 
-import React from 'react'
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
+
 // We use the same ES6 import trick to get all action creators and produce a hash like we did with
 // our reducers. If you haven't yet, go get a look at our action creator (./action-creators.js).
-import * as actionCreators from './action-creators'
+import * as actionCreators from './action-creators';
 
 class Home extends React.Component {
-  onTimeButtonClick (delay) {
+  onTimeButtonClick(delay) {
+
     // This button handler will dispatch an action in response to a click event from a user.
     // We use here the dispatch function "automatically" provided by connect in a prop.
     // There are alternative ways to call actionCreators that are already bound to dispatch and those
@@ -67,19 +69,20 @@ class Home extends React.Component {
     // https://github.com/rackt/react-redux/blob/v4.0.0/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options
     // The "delay" value given to actionCreators.getTime is a delay to simulate an async work being done before we
     // are able to get the current time. Try to change this value to verify that the delay correctly impacts our UI.
-    this.props.dispatch(actionCreators.getTime(delay))
+    this.props.dispatch(actionCreators.getTime(delay));
   }
-  render () {
+
+  render() {
 
     // Thanks to "connect", we're able to get specific selected data, through the props.
-    var { frozen, time, reduxState } = this.props
-    var attrs = {}
-    const DELAY = 500 // in ms
+    var { frozen, time, reduxState } = this.props;
+    var attrs = {};
+    const DELAY = 500; // in ms
 
     if (frozen) {
-        attrs = {
-          disabled: true
-        }
+      attrs = {
+        disabled: true
+      };
     }
 
     return (
@@ -100,7 +103,7 @@ class Home extends React.Component {
           redux state = { JSON.stringify(reduxState, null, 2) }
         </pre>
       </div>
-    )
+    );
   }
 }
 
@@ -110,16 +113,17 @@ const mapStateToProps = (state/*, props*/) => {
   return {
     frozen: state._time.frozen,
     time: state._time.time,
+
     // It is very bad practice to provide the full state like that (reduxState: state) and it is only done here
     // for you to see its stringified version in our page. More about that here:
     // https://github.com/rackt/react-redux/blob/v4.0.0/docs/api.md#inject-dispatch-and-every-field-in-the-global-state
-    reduxState: state,
-  }
-}
+    reduxState: state
+  };
+};
 
-const ConnectedHome = connect(mapStateToProps)(Home)
+const ConnectedHome = connect(mapStateToProps)(Home);
 
-export default ConnectedHome
+export default ConnectedHome;
 
 // You might have noticed that thanks to redux, while we have a dynamic component that requires some state (to keep
 // the current time), this state is by no mean present inside the component. Our component only receives props with

@@ -1,9 +1,9 @@
-var path = require('path')
-var webpack = require('webpack')
+var path = require('path');
+var webpack = require('webpack');
 
-var webpackDevHost = 'localhost'
+var webpackDevHost = 'localhost';
 
-module.exports = function (webpackDevPort) {
+module.exports = function(webpackDevPort) {
   return {
     devtool: 'eval',
     entry: [
@@ -30,5 +30,5 @@ module.exports = function (webpackDevPort) {
         include: path.join(__dirname, 'src')
       }]
     }
-  }
-}
+  };
+};

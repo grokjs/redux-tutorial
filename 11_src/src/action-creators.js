@@ -2,7 +2,7 @@
 
 // We're using Bluebird (https://github.com/petkaantonov/bluebird) as promise library but you could really
 // use any promise lib you want.
-import Promise from 'bluebird'
+import Promise from 'bluebird';
 
 // Our action creator just gets the current time in a delayed fashion to illustrate the use of the promise
 // middleware.
@@ -34,13 +34,13 @@ export function getTime(delay) {
       return new Promise((resolve, reject) => {
         // Just simulating an async request to a server via a setTimeout
         setTimeout(() => {
-          const d = new Date()
-          const ms = ('000' + d.getMilliseconds()).slice(-3)
+          const d = new Date();
+          const ms = ('000' + d.getMilliseconds()).slice(-3);
           resolve({
             time: `${d.toString().match(/\d{2}:\d{2}:\d{2}/)[0]}.${ms}`
-          })
-        }, delay)
-      })
+          });
+        }, delay);
+      });
     }
-  }
+  };
 }

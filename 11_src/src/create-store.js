@@ -10,14 +10,16 @@
 // in this very good react-redux-universal-example: https://github.com/erikras/react-redux-universal-hot-example
 // that I strongly suggest you get a look at (later, not right now ;)).
 
-import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+
 // You can go and see the code for this middleware, it's not very complicated and makes a good
 // exercise to sharpen your understanding on middlewares.
-import promiseMiddleware from './promise-middleware'
+import promiseMiddleware from './promise-middleware';
+
 // We'll just have one reducer in this application but the ES6 import notation below is
 // pretty interesting to import and produce a reducers hash in one go. Have a look in
 // ./reducers.js to see what our reducer actually do (no magic there).
-import * as reducers from './reducers'
+import * as reducers from './reducers';
 
 // The data parameter that we see here is used to initialize our redux store with data. We didn't
 // talk about this yet for simplicity but thanks to it your reducers can be initialized
@@ -26,11 +28,11 @@ import * as reducers from './reducers'
 // initialized with that data.
 // We're not passing any data here but it's good to know about this createStore's ability.
 export default function(data) {
-  var reducer = combineReducers(reducers)
-  var finalCreateStore = applyMiddleware(promiseMiddleware)(createStore)
-  var store = finalCreateStore(reducer, data)
+  var reducer = combineReducers(reducers);
+  var finalCreateStore = applyMiddleware(promiseMiddleware)(createStore);
+  var store = finalCreateStore(reducer, data);
 
-  return store
+  return store;
 }
 
 // Go to ./application.jsx to learn of the first Redux binding for React: the Provider component.
